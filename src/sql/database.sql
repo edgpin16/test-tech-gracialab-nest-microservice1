@@ -32,6 +32,9 @@ CREATE TABLE IF NOT EXISTS reservations(
 ALTER TABLE roles 
     ADD CONSTRAINT pk_roles PRIMARY KEY(id);
 
+ALTER TABLE `roles` 
+    CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;
+
 ALTER TABLE users
     ADD CONSTRAINT pk_users PRIMARY KEY(identificacion_document);
 
@@ -43,11 +46,13 @@ ALTER TABLE users
 ALTER TABLE reservations
     ADD CONSTRAINT pk_reservations PRIMARY KEY(id);
 
+ALTER TABLE `reservations` 
+    CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;
+
 ALTER TABLE reservations
     ADD CONSTRAINT pk_reservations_users FOREIGN KEY(ID_users) 
     REFERENCES users(identificacion_document)
     ON UPDATE CASCADE ON DELETE RESTRICT;
-
 
 /*CREANDO LOS ROLES :)*/
 
@@ -55,7 +60,6 @@ INSERT INTO `roles` (`id`, `name`, `description`)
     VALUES 
     ('1', 'ADMIN', 'Un administrador'), 
     ('2', 'CLIENTE', 'Un cliente comun y corriente ');
-
 
 /*CREANDO EL USUARIO ADMINISTRADOR :)*/
 
