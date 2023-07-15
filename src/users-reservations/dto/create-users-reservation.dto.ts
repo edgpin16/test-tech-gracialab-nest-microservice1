@@ -80,6 +80,6 @@ export class CreateUsersReservationDto {
 
     @IsBoolean()
     @IsNotEmpty()
-    is_confirm: string;
+    is_confirm: number;
 
 }
