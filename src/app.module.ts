@@ -19,7 +19,7 @@ import { UsersReservationsModule } from './users-reservations/users-reservations
       password: process.env.PASSWORD_DB,  
       retryDelay: 3000,    
       autoLoadEntities: true,
-      synchronize: true,
+      synchronize: false, //Ya la estructura SQL esta hecha, solo usaremos el orm para interacciones
     }),
   ],
   controllers: [AppController],
