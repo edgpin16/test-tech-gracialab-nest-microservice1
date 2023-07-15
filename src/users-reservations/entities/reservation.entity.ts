@@ -9,15 +9,21 @@ enum typeReservations {
     ocasion_especial = 'ocasion especial'
 };
 
-@Entity()
+//El objeto literal en el decorador hace referencia a una tabla existente en la BD
+@Entity({name : 'reservations'})
 export class Reservation{
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column({
+        type : 'text',
+    })
+    ID_users : string;
+
+    @Column({
         type : 'date'
     })
-    reservation_date : Date;
+    reservation_date : string;
 
     @Column({
         type : 'enum',
@@ -44,9 +50,9 @@ export class Reservation{
         type : 'boolean',
         default : 0
     })
-    is_boolean : number
+    is_confirm : number
 
-    @ManyToOne(() => User, (user) => user.identificacion_document)
-    user: User
+    // @ManyToOne(() => User, (user) => user.identificacion_document)
+    // user?: User
 
 }

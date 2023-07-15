@@ -1,6 +1,6 @@
 import { 
     IsBoolean,
-    IsDate, 
+    IsDateString, 
     IsEnum, 
     IsNotEmpty, 
     IsNumber, 
@@ -51,13 +51,13 @@ export class CreateUsersReservationDto {
     @IsNotEmpty()
     email: string;
 
-    @IsString()
-    @IsOptional()
-    password: string;
+    // @IsString()
+    // @IsOptional()
+    // password: string;
 
-    @IsDate()
+    @IsDateString()
     @IsNotEmpty()
-    reservation_date : Date;
+    reservation_date : string;
 
     @IsEnum(typeReservations)
     @IsNotEmpty()
@@ -79,7 +79,7 @@ export class CreateUsersReservationDto {
     observation: string;
 
     @IsBoolean()
-    @IsNotEmpty()
-    is_confirm: number;
+    @IsOptional()
+    is_confirm?: number;
 
 }

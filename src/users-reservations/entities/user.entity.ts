@@ -1,7 +1,8 @@
 import { Column, Entity, PrimaryColumn, OneToMany } from "typeorm";
 import { Reservation } from "./reservation.entity";
 
-@Entity()
+//El objeto literal en el decorador hace referencia a una tabla existente en la BD
+@Entity({name : 'users'})
 export class User{
 
     @PrimaryColumn()
@@ -41,6 +42,6 @@ export class User{
     })
     password : string;
 
-    @OneToMany(() => Reservation, (reservation) => reservation.id)
-    reservations : Reservation[]
+    // @OneToMany(() => Reservation, (reservation) => reservation.id)
+    // reservations : Reservation[]
 }
