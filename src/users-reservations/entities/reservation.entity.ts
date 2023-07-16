@@ -23,7 +23,7 @@ export class Reservation{
     @Column({
         type : 'date'
     })
-    reservation_date : string;
+    reservation_date : Date;
 
     @Column({
         type : 'enum',
