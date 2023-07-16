@@ -35,6 +35,9 @@ export class UsersReservationsService {
         observation,
       } = createUsersReservationDto;
 
+      //Mensaje de respuesta :) 
+      let message : any = {}
+
       //Creamos una nueva instancia tipo entity de users
       const newUser : User = 
       this.userRepository.create(
@@ -63,22 +66,32 @@ export class UsersReservationsService {
       const response = await this.userRepository.findOneBy({identificacion_document});
       
       //Si no existe
-      if(!response) 
+      if(!response){
         await this.userRepository.save(newUser); //Guardamos la instancia en la BD
+        message = {
+          ...message,
+          newUser
+        }
+      }
       
       //Si existe, no tiene sentido volver a guardar, solo guardamos la reservacion
       await this.reservationRepository.save(newReservation);
 
-      return {
-        msg : 'Valores guardados exitosamente',
-        newUser : !response ? newUser : response, //Retorno el nuevo usuario o el usuario encontrado
-        newReservation
-      };
+      message = {
+        ...message,
+        newReservation,
+        message : "Resources created successfully :D"
+      }
 
+      return message;
     }
     catch(error){
       console.log(error);
-      this.handleDBExceptions(error);
+      return {
+        message : "Ha ocurrido un error :(",
+        error
+      };
+      //this.handleDBExceptions(error);
     }
   }
 
@@ -86,22 +99,11 @@ export class UsersReservationsService {
     return this.userRepository.find({});
   }
 
-  private handleDBExceptions( error: any ) {
-    if ( error.code === '23505' )
-      throw new BadRequestException(error.detail);
+  // private handleDBExceptions( error: any ) {
+  //   if ( error.code === '23505' )
+  //     throw new BadRequestException(error.detail);
     
-    throw new InternalServerErrorException('Unexpected error, check server logs', error.message);
-  }
-
-  // findOne(id: number) {
-  //   return `This action returns a #${id} usersReservation`;
+  //   throw new InternalServerErrorException('Unexpected error, check server logs', error.message);
   // }
 
-  // update(id: number, updateUsersReservationDto: UpdateUsersReservationDto) {
-  //   return `This action updates a #${id} usersReservation`;
-  // }
-
-  // remove(id: number) {
-  //   return `This action removes a #${id} usersReservation`;
-  // }
 }
