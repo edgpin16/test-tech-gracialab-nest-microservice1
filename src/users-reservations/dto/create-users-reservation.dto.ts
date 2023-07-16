@@ -1,5 +1,7 @@
+import { Transform } from "class-transformer";
 import { 
     IsBoolean,
+    IsDate,
     IsDateString, 
     IsEnum, 
     IsNotEmpty, 
@@ -7,7 +9,9 @@ import {
     IsOptional, 
     IsPositive, 
     IsString, 
-    MinLength, 
+    MinDate, 
+    MinLength,
+    minDate, 
     } 
 from "class-validator";
 
@@ -55,9 +59,14 @@ export class CreateUsersReservationDto {
     // @IsOptional()
     // password: string;
 
-    @IsDateString()
+    // @IsDateString()
+    // @MinDate(new Date(), {message : "La fecha elegida debe ser igual o superior"})
+    // @IsNotEmpty()
     @IsNotEmpty()
-    reservation_date : string;
+    @Transform( ({ value }) => new Date(value))
+    @IsDate()
+    @MinDate(new Date(), {message : "La fecha elegida debe ser igual o superior"})
+    reservation_date : Date;
 
     @IsEnum(typeReservations)
     @IsNotEmpty()
